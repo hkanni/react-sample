@@ -1,0 +1,182 @@
+@import url(https://use.fontawesome.com/releases/v5.0.6/css/all.css);
+
+body {
+  background-color: #aaa;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 95%;
+}
+
+.center header {
+  background-color: #674ea7;
+  color: white;
+}
+header {
+  background-color: blueviolet;
+  flex: 0 0 40px;
+  color: white;
+
+  /* justify-content: center; */
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+header nav {
+  background-color: transparent;
+}
+header nav ul {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+}
+.center header nav a:hover {
+  text-decoration: underline;
+}
+/*
+a:active {
+  color: black;
+}
+
+.active {
+  color: black;
+}
+*/
+.center section {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.centerSection {
+  min-height: 700px;
+  width:70%;
+  height:100%;
+  background-color: #eee;
+  margin:auto;
+  position: relative;
+  /*border: solid red;*/
+  padding-left: 30px;
+  padding-right: 30px;
+  
+}
+
+.navbarHeight {
+  height:60px;
+}
+
+.centerSection h2 {
+  padding: 50px 0;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: sans-serif;
+  /*background-color: green;*/
+}
+
+.centerSection p{
+  margin: 20px;
+}
+
+.inlineItem {
+  background-color: rgb(166, 157, 235);
+  height:180px;
+  width: 150px;
+  margin:30px;
+  text-align: center;
+  padding:20px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.shortDescription {
+  font-size:27px;
+}
+
+.bottomLeft {
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+}
+
+form.itemPage {
+  /*background-color: orange;*/
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.amountInput {
+  width:90px
+}
+
+.productName {
+  display:inline-block;
+  position: relative;
+  font:35px bold;
+  width: 150px;
+  top: 7px;
+  /*border:green solid;*/
+}
+
+.productAmount {
+  position: relative;
+  top: 4px;
+  font-size: 30px;
+
+}
+
+.productPrice {
+  display:inline-block;
+  position: relative;
+  font-size:25px;
+  width: 70px;
+  top: 7px;
+
+}
+
+.productAmountDiv {
+  display: inline-block;
+  width:70px;
+  border-radius:20px;
+  height:45px;
+  text-align:center;
+}
+
+.totalPrice {
+  display: inline-block;
+  width:170px;
+  text-align:left;
+}
+
+.totalCost {
+  position:relative;
+  right: 21px;
+  top: 20px;
+  font:35px bold;
+}
+
+.makePurchase {
+  float:right;
+  margin: 30px 0 0 40px;
+  
+}
