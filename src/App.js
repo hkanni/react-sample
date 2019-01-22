@@ -8,7 +8,7 @@ import CheckoutSummary from './components/checkOutSummary'
 
 const euros = new Intl.NumberFormat('fi-FI', { style: 'currency', currency: 'EUR' })
 
-const items = [
+/*const items = [
   {
     id: 1,
     name: 'ITEM 1',
@@ -45,7 +45,7 @@ const items = [
     unitPrice: 14.30
   }
 ]
-
+*/
 const navigationItems = [{
   id: 0,
   name: 'Items'
@@ -68,20 +68,31 @@ class App extends Component {
     this.state = {
       activeNavItem: 0,
       activeItem: 0,
-      items: items,
+      items: [], //items,
       shoppingCart: [],
       navItems: navigationItems,
-      summary:[]
+      summary: []
     }
   }
+
+
+  componentDidMount() {
+    fetch("http://localhost:3001/itemCatalog")
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      this.setState({items:data})
+    })
+    .catch(error => console.log(error))
+  }
+
 
   handlePageChange = (pageId) => () => {
     console.log('handleClick clicked')
 
     this.setState(prevState => {
-      if (prevState.activenavitem===2)
-      {
-        return { activeNavItem: pageId, activeItem: 0, summary:'' }  
+      if (prevState.activenavitem === 2) {
+        return { activeNavItem: pageId, activeItem: 0, summary: '' }
       }
       return { activeNavItem: pageId, activeItem: 0 }
 
@@ -98,15 +109,17 @@ class App extends Component {
 
   handleCheckout = (totalCost) => {
     console.log('checked out')
-    let summary = this.state.shoppingCart.map(item => {
+    let summary = this.state.shoppingCart
+    .filter(item => item.amount>0)
+    .map(item => {
       console.log(item)
-      let text =  `${item.name} purchased ${item.amount} ${item.amount>1?'pcs':'pc'} costing ${euros.format(item.amount*item.unitPrice)},`
-      return {id:item.id, text}
+        let text = `${item.name} purchased ${item.amount} ${item.amount > 1 ? 'pcs' : 'pc'} costing ${euros.format(item.amount * item.unitPrice)},`
+        return { id: item.id, text }
     })
-    summary.push({id:0,text:`with total cost of ${euros.format(totalCost)}`})
+    summary.push({ id: 0, text: `with total cost of ${euros.format(totalCost)}` })
 
 
-    this.setState({summary,shoppingCart:[], activeNavItem: 2 })
+    this.setState({ summary, shoppingCart: [], activeNavItem: 2 })
   }
 
   handleShoppingCartClick = (id, buttonName) => {
@@ -126,7 +139,9 @@ class App extends Component {
       } else if (buttonName === 'decrease') {
         items = items.map(item => {
           if (item.id === id) {
-            item.amount--
+            if(item.amount>0) {
+              item.amount--
+            }
           }
           return item
         })
@@ -136,24 +151,30 @@ class App extends Component {
   }
 
   handleAmountChange = data => {
-    this.setState(prevState => {
-      let newShoppingCart = [...prevState.shoppingCart]
-      const index = newShoppingCart.findIndex((item) => item.id === data.id)
-      if (index >= 0) {
-        newShoppingCart[index] = { id: data.id, name: data.name, amount: data.amount, unitPrice: data.unitPrice }
-      }
-      else {
-        newShoppingCart.push({ id: data.id, name: data.name, amount: data.amount, unitPrice: data.unitPrice })
-      }
 
-      return ({
-        shoppingCart: newShoppingCart.sort(accendSort)
+    if (data.amount >= 0) {
+      this.setState(prevState => {
+        let newShoppingCart = [...prevState.shoppingCart]
+        const index = newShoppingCart.findIndex((item) => item.id === data.id)
+        if (index >= 0) {
+          newShoppingCart[index] = { id: data.id, name: data.name, amount: data.amount, unitPrice: data.unitPrice }
+        }
+        else {
+          newShoppingCart.push({ id: data.id, name: data.name, amount: data.amount, unitPrice: data.unitPrice })
+        }
+
+        return ({
+          shoppingCart: newShoppingCart.sort(accendSort)
+        })
       })
-    })
+    } else {
+      alert('Amount has to be non negative')
+    }
+
   }
 
   selectElement = () => {
-    const {activeItem, activeNavItem, shoppingCart} = this.state
+    const { activeItem, activeNavItem, shoppingCart } = this.state
 
     if (activeNavItem === 1) {
       return <ShoppingCart items={shoppingCart}
