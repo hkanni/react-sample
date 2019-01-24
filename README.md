@@ -1,6 +1,6 @@
 # React sample
 
-This is a single page app acting like a online shop. 
+This is a single page app that mimics an online shop. 
 
 1. Select items from item list
 2. Move to shopping cart to confirm your selected items and check out
