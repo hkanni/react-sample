@@ -8,44 +8,6 @@ import CheckoutSummary from './components/checkOutSummary'
 
 const euros = new Intl.NumberFormat('fi-FI', { style: 'currency', currency: 'EUR' })
 
-/*const items = [
-  {
-    id: 1,
-    name: 'ITEM 1',
-    description: 'This is a short text 1',
-    itemInformation: 'This is a full description for the item 1. This includes everything that needs to be explained about the product.',
-    unitPrice: 3.60
-  },
-  {
-    id: 2,
-    name: 'ITEM 2',
-    description: 'This is a short text 2',
-    itemInformation: 'This is a full description for the item 1. This includes everything that needs to be explained about the product.',
-    unitPrice: 7.20
-  },
-  {
-    id: 3,
-    name: 'ITEM 3',
-    description: 'This is a short text 3',
-    itemInformation: 'This is a full description for the item 1. This includes everything that needs to be explained about the product.',
-    unitPrice: 1.80
-  },
-  {
-    id: 4,
-    name: 'ITEM 4',
-    description: 'This is a short text 4',
-    itemInformation: 'This is a full description for the item 1. This includes everything that needs to be explained about the product.',
-    unitPrice: 7.00
-  },
-  {
-    id: 5,
-    name: 'ITEM 5',
-    description: 'This is a short text 5',
-    itemInformation: 'This is a full description for the item 1. This includes everything that needs to be explained about the product.',
-    unitPrice: 14.30
-  }
-]
-*/
 const navigationItems = [{
   id: 0,
   name: 'Items'
@@ -77,7 +39,7 @@ class App extends Component {
 
 
   componentDidMount() {
-    fetch("http://localhost:3001/itemCatalog")
+    fetch("https://guarded-ravine-90651.herokuapp.com/itemCatalog")
     .then(response => response.json())
     .then(data => {
       console.log(data)
